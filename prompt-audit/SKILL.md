@@ -1,6 +1,6 @@
 ---
 name: prompt-audit
-description: Audita cómo el usuario escribe sus prompts en Claude/Cowork analizando sus sesiones recientes reales, y devuelve un puntaje 0-100 con scorecard visual y recomendaciones concretas. Usar siempre que el usuario pida evaluar, auditar, puntuar o mejorar su prompting, pregunte "cómo estoy prompteando", "analizá mis prompts", "dame un puntaje de mis prompts", "prompt audit", o quiera un reporte (puntual o recurrente) sobre la calidad de sus instrucciones a Claude.
+description: Audits how the user writes their prompts in Claude/Cowork by analyzing their real recent sessions, and returns a 0-100 score with a visual scorecard and concrete recommendations. Use whenever the user asks to evaluate, audit, score, or improve their prompting — e.g. "how good are my prompts", "audit my prompts", "prompt audit", "rate my prompting", "cómo estoy prompteando", "analizá mis prompts", "dame un puntaje de mis prompts" — or wants a one-off or recurring report on the quality of their instructions to Claude. The report is written in the user's language.
 ---
 
 # Prompt audit
@@ -11,9 +11,9 @@ El valor de esta skill está en usar evidencia real. Nunca inventes ni parafrase
 
 ## Paso 1 — Recopilar prompts
 
-1. Llamá `mcp__session_info__list_sessions` (limit 20-30).
+1. Usá las herramientas de sesiones disponibles en el entorno para listar sesiones recientes (limit 20-30). El nombre exacto varía según el entorno: buscá tools tipo `list_sessions` / `read_transcript` / `search_session_transcripts` (en Cowork suelen ser `mcp__session_info__*`; en otros entornos pueden colgar de otro servidor). Si no aparecen en tu lista de tools, buscalas con ToolSearch antes de asumir que no existen; si realmente no hay acceso a sesiones, explicáselo al usuario y no inventes datos.
 2. Elegí una muestra diversa de 6-10 sesiones: mezclá dominios (código, negocio, escritura, investigación, personal). Excluí la sesión actual y las corridas de scheduled tasks (no contienen prompts escritos por el usuario). Si esta auditoría es recurrente (ej. diaria), priorizá sesiones nuevas o activas desde la última corrida; si no hay suficientes, completá con las más recientes.
-3. Llamá `mcp__session_info__read_transcript` por sesión (limit 25-40, `max_wait_seconds: 0`, en paralelo cuando puedas).
+3. Leé la transcripción de cada sesión elegida con la tool correspondiente (limit 25-40 mensajes; si acepta `max_wait_seconds`, pasá 0; en paralelo cuando puedas).
 4. Extraé solo los mensajes `[user]` escritos por la persona. Descartá: expansiones de skills (empiezan con "Base directory for this skill"), archivos adjuntos, e imágenes. Necesitás al menos ~8 prompts reales; si hay menos, ampliá la muestra de sesiones antes de puntuar.
 
 ## Paso 2 — Puntuar
