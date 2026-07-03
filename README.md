@@ -14,6 +14,12 @@ Lee una muestra de tus sesiones recientes, extrae los prompts que escribiste vos
 
 Sirve tanto para una auditoría puntual como para un reporte recurrente (por ejemplo, diario con scheduled tasks) que compara contra el puntaje anterior.
 
+## Ejemplo real
+
+Así se ve el scorecard de una auditoría recurrente (con la comparación contra la corrida anterior):
+
+![Scorecard de ejemplo: 75/100, avanzado-intermedio, con 6 dimensiones puntuadas](docs/scorecard-example.png)
+
 ## Instalación
 
 **Cowork (app de escritorio):** empaquetá la carpeta como `.skill` y subila desde la sección de skills:
